@@ -2,7 +2,7 @@
 
 Patched Netflix App for Android enabling Widevine L1 allowing not certified devices to play HD
 
-## Presequisites
+## Prerequisites
 
 - apktool v2.4.0
 
