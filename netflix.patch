@@ -1,12 +1,25 @@
-diff -ur ./netflix/smali/com/netflix/mediaclient/service/NetflixService.smali ./netflix_patched/smali/com/netflix/mediaclient/service/NetflixService.smali
---- ./netflix/smali/com/netflix/mediaclient/service/NetflixService.smali	2019-06-24 13:35:10.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/service/NetflixService.smali	2019-06-23 02:29:56.000000000 +0700
-@@ -2744,13 +2744,7 @@
- .method public isDeviceHd()Z
+Only in netflix_patched: .DS_Store
+diff -ur netflix/smali/com/netflix/mediaclient/android/activity/NetflixActivity.smali netflix_patched/smali/com/netflix/mediaclient/android/activity/NetflixActivity.smali
+--- netflix/smali/com/netflix/mediaclient/android/activity/NetflixActivity.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/android/activity/NetflixActivity.smali	2019-09-08 15:36:50.000000000 +0700
+@@ -4332,8 +4332,7 @@
      .locals 1
  
--    .prologue
--    .line 1189
+     .prologue
+-    .line 2827
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/android/activity/NetflixActivity;->mIsTablet:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+diff -ur netflix/smali/com/netflix/mediaclient/service/NetflixService.smali netflix_patched/smali/com/netflix/mediaclient/service/NetflixService.smali
+--- netflix/smali/com/netflix/mediaclient/service/NetflixService.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/NetflixService.smali	2019-09-08 15:37:08.000000000 +0700
+@@ -2785,12 +2785,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 1217
 -    iget-object v0, p0, Lcom/netflix/mediaclient/service/NetflixService;->mConfigurationAgent:Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;
 -
 -    invoke-virtual {v0}, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->isDeviceHd()Z
@@ -16,29 +29,69 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/service/NetflixService.smali ./
  
      return v0
  .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali ./netflix_patched/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali
---- ./netflix/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali	2019-06-24 13:35:10.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali	2019-06-23 02:29:31.000000000 +0700
-@@ -3765,27 +3765,9 @@
- .method public isAllowVp9Mobile()Z
+@@ -2827,12 +2822,7 @@
      .locals 1
  
--    .prologue
--    .line 1443
+     .prologue
+-    .line 1212
+-    iget-object v0, p0, Lcom/netflix/mediaclient/service/NetflixService;->mConfigurationAgent:Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;
+-
+-    invoke-virtual {v0}, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->isTablet()Z
+-
+-    move-result v0
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+diff -ur netflix/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali netflix_patched/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali
+--- netflix/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/configuration/ConfigurationAgent.smali	2019-09-08 15:57:01.000000000 +0700
+@@ -3329,52 +3329,16 @@
+     .locals 1
+ 
+     .prologue
+-    .line 1375
 -    iget-object v0, p0, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->mDeviceConfigOverride:Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;
 -
 -    if-eqz v0, :cond_0
 -
--    .line 1444
+-    .line 1376
+-    iget-object v0, p0, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->mDeviceConfigOverride:Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;
+-
+-    invoke-virtual {v0}, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->isAllowHevcMobile()Z
+-
+-    move-result v0
+-
+-    .line 1378
+-    :goto_0
++    const/4 v0, 0x1
+     return v0
+-
+-    :cond_0
+-    const/4 v0, 0x0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method public isAllowVp9Mobile()Z
+     .locals 1
+ 
+     .prologue
+-    .line 1383
+-    iget-object v0, p0, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->mDeviceConfigOverride:Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;
+-
+-    if-eqz v0, :cond_0
+-
+-    .line 1384
 -    iget-object v0, p0, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->mDeviceConfigOverride:Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;
 -
 -    invoke-virtual {v0}, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->isAllowVp9Mobile()Z
 -
 -    move-result v0
-+    const/4 v0, 0x1
- 
--    .line 1446
+-
+-    .line 1386
 -    :goto_0
++    const/4 v0, 0x0
      return v0
 -
 -    :cond_0
@@ -48,25 +101,11 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/service/configuration/Configura
  .end method
  
  .method public isAppVersionObsolete()Z
-@@ -3997,11 +3979,7 @@
- .method public isCurrentDrmWidevine()Z
+@@ -3599,28 +3563,8 @@
      .locals 1
  
--    .prologue
--    .line 705
--    invoke-static {}, Lcom/netflix/mediaclient/service/configuration/drm/DrmManagerRegistry;->isCurrentDrmWidevine()Z
--
--    move-result v0
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -4009,29 +3987,9 @@
- .method public isDeviceHd()Z
-     .locals 1
- 
--    .prologue
--    .line 567
+     .prologue
+-    .line 565
 -    invoke-static {}, Lcom/netflix/mediaclient/service/configuration/drm/DrmManagerRegistry;->drmSupportsHd()Z
 -
 -    move-result v0
@@ -80,7 +119,7 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/service/configuration/Configura
 -    if-eqz v0, :cond_0
 -
      const/4 v0, 0x1
- 
+-
 -    :goto_0
      return v0
 -
@@ -91,12 +130,30 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/service/configuration/Configura
  .end method
  
  .method public isDeviceLowMem()Z
-@@ -4308,13 +4266,7 @@
- .method public isWidevineL1Enabled()Z
+@@ -3893,17 +3837,7 @@
+     .locals 2
+ 
+     .prologue
+-    .line 559
+-    invoke-virtual {p0}, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->getDeviceCategory()Lcom/netflix/mediaclient/util/DeviceCategory;
+-
+-    move-result-object v0
+-
+-    .line 560
+-    sget-object v1, Lcom/netflix/mediaclient/util/DeviceCategory;->TABLET:Lcom/netflix/mediaclient/util/DeviceCategory;
+-
+-    invoke-virtual {v1, v0}, Lcom/netflix/mediaclient/util/DeviceCategory;->equals(Ljava/lang/Object;)Z
+-
+-    move-result v0
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+@@ -3912,12 +3846,7 @@
      .locals 1
  
--    .prologue
--    .line 1022
+     .prologue
+-    .line 1040
 -    iget-object v0, p0, Lcom/netflix/mediaclient/service/configuration/ConfigurationAgent;->mDeviceConfigOverride:Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;
 -
 -    invoke-virtual {v0}, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->enableWidevineL1()Z
@@ -106,73 +163,173 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/service/configuration/Configura
  
      return v0
  .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali ./netflix_patched/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali
---- ./netflix/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali	2019-06-24 13:35:10.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali	2019-06-23 02:18:06.000000000 +0700
-@@ -221,9 +221,7 @@
- .method public is5dot1Supported()Z
+diff -ur netflix/smali/com/netflix/mediaclient/service/configuration/DeviceConfiguration.smali netflix_patched/smali/com/netflix/mediaclient/service/configuration/DeviceConfiguration.smali
+--- netflix/smali/com/netflix/mediaclient/service/configuration/DeviceConfiguration.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/configuration/DeviceConfiguration.smali	2019-09-08 16:04:18.000000000 +0700
+@@ -1625,8 +1625,7 @@
      .locals 1
  
--    .prologue
--    .line 76
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities;->mIs5dot1Supported:Z
+     .prologue
+-    .line 228
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->mIsWidevineL1Enabled:Z
 +    const/4 v0, 0x1
  
      return v0
  .end method
-@@ -231,9 +229,7 @@
- .method public isHdSupported()Z
+@@ -1899,8 +1898,7 @@
      .locals 1
  
--    .prologue
+     .prologue
+-    .line 684
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->mAllowHevcMobile:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+@@ -1909,8 +1907,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 688
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/configuration/DeviceConfiguration;->mAllowVp9Mobile:Z
++    const/4 v0, 0x0
+ 
+     return v0
+ .end method
+diff -ur netflix/smali/com/netflix/mediaclient/service/configuration/PlayerTypeFactory.smali netflix_patched/smali/com/netflix/mediaclient/service/configuration/PlayerTypeFactory.smali
+--- netflix/smali/com/netflix/mediaclient/service/configuration/PlayerTypeFactory.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/configuration/PlayerTypeFactory.smali	2019-09-08 15:27:37.000000000 +0700
+@@ -734,22 +734,8 @@
+     .locals 2
+ 
+     .prologue
+-    .line 269
+-    sget v0, Lcom/netflix/mediaclient/service/configuration/PlayerTypeFactory;->cryptoFactoryType:I
+-
+-    const/4 v1, 0x2
+-
+-    if-ne v0, v1, :cond_0
+-
+     const/4 v0, 0x1
+-
+-    :goto_0
+     return v0
+-
+-    :cond_0
+-    const/4 v0, 0x0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method public static isXalPlayer(Lcom/netflix/mediaclient/media/PlayerType;)Z
+diff -ur netflix/smali/com/netflix/mediaclient/service/configuration/crypto/MSLWidevineCryptoManager.smali netflix_patched/smali/com/netflix/mediaclient/service/configuration/crypto/MSLWidevineCryptoManager.smali
+--- netflix/smali/com/netflix/mediaclient/service/configuration/crypto/MSLWidevineCryptoManager.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/configuration/crypto/MSLWidevineCryptoManager.smali	2019-09-08 15:27:22.000000000 +0700
+@@ -260,30 +260,8 @@
+     .end annotation
+ 
+     .prologue
+-    .line 222
+-    invoke-static {}, Lcom/netflix/mediaclient/util/AndroidUtils;->getAndroidVersion()I
+-
+-    move-result v0
+-
+-    const/16 v1, 0x12
+-
+-    if-lt v0, v1, :cond_0
+-
+-    .line 223
+-    sget-object v0, Lcom/netflix/mediaclient/service/configuration/crypto/MSLWidevineCryptoManager;->WIDEVINE_SCHEME:Ljava/util/UUID;
+-
+-    invoke-static {v0}, Landroid/media/MediaDrm;->isCryptoSchemeSupported(Ljava/util/UUID;)Z
+-
+-    move-result v0
+-
+-    .line 225
+-    :goto_0
++    const/4 v0, 0x1
+     return v0
+-
+-    :cond_0
+-    const/4 v0, 0x0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method private startWidewineProvisioning()V
+diff -ur netflix/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali netflix_patched/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali
+--- netflix/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities.smali	2019-09-08 15:31:36.000000000 +0700
+@@ -232,8 +232,7 @@
+     .locals 1
+ 
+     .prologue
 -    .line 67
 -    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/mdx/message/target/PlayerCapabilities;->mIsHdSupported:Z
 +    const/4 v0, 0x1
  
      return v0
  .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali ./netflix_patched/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali
---- ./netflix/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali	2019-06-23 02:33:08.000000000 +0700
-@@ -694,9 +694,7 @@
- .method public isWidevineL1Enabled()Z
+diff -ur netflix/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali netflix_patched/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali
+--- netflix/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData.smali	2019-09-08 16:04:24.000000000 +0700
+@@ -667,8 +667,7 @@
      .locals 1
  
--    .prologue
--    .line 181
+     .prologue
+-    .line 289
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData;->allowHevcMobile:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+@@ -677,8 +676,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 293
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData;->allowVp9Mobile:Z
++    const/4 v0, 0x0
+ 
+     return v0
+ .end method
+@@ -727,8 +725,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 188
 -    iget-boolean v0, p0, Lcom/netflix/mediaclient/service/webclient/model/leafs/DeviceConfigData;->enableWidevineL1:Z
 +    const/4 v0, 0x1
  
      return v0
  .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali ./netflix_patched/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali
---- ./netflix/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali	2019-06-23 02:30:52.000000000 +0700
-@@ -2299,37 +2299,9 @@
- .method public isDeviceHd()Z
+diff -ur netflix/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali netflix_patched/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali
+--- netflix/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali	2019-09-13 08:42:01.000000000 +0700
++++ netflix_patched/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali	2019-09-08 15:37:23.000000000 +0700
+@@ -2428,36 +2428,8 @@
      .locals 2
  
--    .prologue
--    .line 668
+     .prologue
+-    .line 703
 -    invoke-direct {p0}, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->validateService()Z
 -
 -    move-result v0
 -
 -    if-eqz v0, :cond_0
 -
--    .line 669
+-    .line 704
 -    iget-object v0, p0, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->mService:Lcom/netflix/mediaclient/servicemgr/INetflixService;
 -
 -    invoke-interface {v0}, Lcom/netflix/mediaclient/servicemgr/INetflixService;->isDeviceHd()Z
 -
 -    move-result v0
-+    const/4 v0, 0x1
- 
--    .line 672
+-
+-    .line 707
 -    :goto_0
++    const/4 v0, 0x1
      return v0
 -
--    .line 671
+-    .line 706
 -    :cond_0
 -    const-string/jumbo v0, "ServiceManager"
 -
@@ -180,118 +337,84 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/servicemgr/ServiceManager.smali
 -
 -    invoke-static {v0, v1}, Lcom/netflix/mediaclient/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 -
--    .line 672
+-    .line 707
 -    const/4 v0, 0x0
 -
 -    goto :goto_0
  .end method
  
  .method public isDolbyDigitalPlus51Supported()Z
-diff -ur ./netflix/smali/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali ./netflix_patched/smali/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali
---- ./netflix/smali/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali	2019-06-23 02:19:09.000000000 +0700
-@@ -263,9 +263,7 @@
- .method public is5dot1Supported()Z
-     .locals 1
+@@ -2614,36 +2586,8 @@
+     .locals 2
  
--    .prologue
--    .line 84
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->is5dot1Supported:Z
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -273,9 +271,7 @@
- .method public isDolbyVisionSupported()Z
-     .locals 1
- 
--    .prologue
--    .line 141
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->isDolbyVisionSupported:Z
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -283,9 +279,7 @@
- .method public isHdSupported()Z
-     .locals 1
- 
--    .prologue
--    .line 74
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->isHdSupported:Z
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -293,9 +287,7 @@
- .method public isHdr10Supported()Z
-     .locals 1
- 
--    .prologue
--    .line 136
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->isHdr10Supported:Z
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -303,9 +295,7 @@
- .method public isUltraHdSupported()Z
-     .locals 1
- 
--    .prologue
--    .line 131
--    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->isUltraHdSupported:Z
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali ./netflix_patched/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali
---- ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali	2019-06-23 02:20:01.000000000 +0700
-@@ -38,37 +38,15 @@
- .method public is5dot1Supported()Z
-     .locals 1
- 
--    .prologue
--    .line 636
--    iget-object v0, p0, Lcom/netflix/mediaclient/util/DeviceUtils$1;->val$serviceManager:Lcom/netflix/mediaclient/servicemgr/ServiceManager;
--
--    if-eqz v0, :cond_0
--
--    iget-object v0, p0, Lcom/netflix/mediaclient/util/DeviceUtils$1;->val$serviceManager:Lcom/netflix/mediaclient/servicemgr/ServiceManager;
--
--    invoke-virtual {v0}, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->isDolbyDigitalPlus51Supported()Z
+     .prologue
+-    .line 691
+-    invoke-direct {p0}, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->validateService()Z
 -
 -    move-result v0
 -
 -    if-eqz v0, :cond_0
 -
-     const/4 v0, 0x1
- 
+-    .line 692
+-    iget-object v0, p0, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->mService:Lcom/netflix/mediaclient/servicemgr/INetflixService;
+-
+-    invoke-interface {v0}, Lcom/netflix/mediaclient/servicemgr/INetflixService;->isTablet()Z
+-
+-    move-result v0
+-
+-    .line 695
 -    :goto_0
++    const/4 v0, 0x1
      return v0
 -
+-    .line 694
 -    :cond_0
+-    const-string/jumbo v0, "ServiceManager"
+-
+-    const-string/jumbo v1, "isTablet:: service is not available"
+-
+-    invoke-static {v0, v1}, Lcom/netflix/mediaclient/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+-
+-    .line 695
 -    const/4 v0, 0x0
 -
 -    goto :goto_0
  .end method
  
- .method public isDolbyVisionSupported()Z
+ .method public isUserAgeVerified()Z
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali netflix_patched/smali_classes2/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/ui/mdx/MdxTargetCapabilities.smali	2019-09-08 15:31:19.000000000 +0700
+@@ -256,8 +256,7 @@
      .locals 1
  
--    .prologue
--    .line 655
--    const/4 v0, 0x0
+     .prologue
+-    .line 71
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/mdx/MdxTargetCapabilities;->isHdSupported:Z
 +    const/4 v0, 0x1
  
      return v0
  .end method
-@@ -76,37 +54,15 @@
- .method public isHdSupported()Z
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/ui/player/PlayerFragment.smali netflix_patched/smali_classes2/com/netflix/mediaclient/ui/player/PlayerFragment.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/ui/player/PlayerFragment.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/ui/player/PlayerFragment.smali	2019-09-08 15:36:31.000000000 +0700
+@@ -8794,8 +8794,7 @@
      .locals 1
  
--    .prologue
+     .prologue
+-    .line 743
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/ui/player/PlayerFragment;->mIsTablet:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/util/DeviceUtils$1.smali netflix_patched/smali_classes2/com/netflix/mediaclient/util/DeviceUtils$1.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/util/DeviceUtils$1.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/util/DeviceUtils$1.smali	2019-09-08 15:31:29.000000000 +0700
+@@ -67,28 +67,8 @@
+     .locals 1
+ 
+     .prologue
 -    .line 631
 -    iget-object v0, p0, Lcom/netflix/mediaclient/util/DeviceUtils$1;->val$serviceManager:Lcom/netflix/mediaclient/servicemgr/ServiceManager;
 -
@@ -306,7 +429,7 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali ./netf
 -    if-eqz v0, :cond_0
 -
      const/4 v0, 0x1
- 
+-
 -    :goto_0
      return v0
 -
@@ -317,40 +440,19 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils$1.smali ./netf
  .end method
  
  .method public isHdr10Supported()Z
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/util/DeviceUtils.smali netflix_patched/smali_classes2/com/netflix/mediaclient/util/DeviceUtils.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/util/DeviceUtils.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/util/DeviceUtils.smali	2019-09-08 15:25:06.000000000 +0700
+@@ -1202,29 +1202,8 @@
      .locals 1
  
--    .prologue
--    .line 651
--    const/4 v0, 0x0
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-@@ -114,9 +70,7 @@
- .method public isUltraHdSupported()Z
-     .locals 1
- 
--    .prologue
--    .line 646
--    const/4 v0, 0x0
-+    const/4 v0, 0x1
- 
-     return v0
- .end method
-diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils.smali ./netflix_patched/smali/com/netflix/mediaclient/util/DeviceUtils.smali
---- ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/util/DeviceUtils.smali	2019-06-23 02:31:15.000000000 +0700
-@@ -1201,30 +1201,9 @@
- .method public static isDeviceHd(Lcom/netflix/mediaclient/android/activity/NetflixActivity;)Z
-     .locals 1
- 
--    .prologue
--    .line 705
+     .prologue
+-    .line 698
 -    invoke-virtual {p0}, Lcom/netflix/mediaclient/android/activity/NetflixActivity;->getServiceManager()Lcom/netflix/mediaclient/servicemgr/ServiceManager;
 -
 -    move-result-object v0
 -
--    .line 706
+-    .line 699
 -    if-eqz v0, :cond_0
 -
 -    invoke-virtual {v0}, Lcom/netflix/mediaclient/servicemgr/ServiceManager;->isDeviceHd()Z
@@ -360,7 +462,7 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils.smali ./netfli
 -    if-eqz v0, :cond_0
 -
      const/4 v0, 0x1
- 
+-
 -    :goto_0
      return v0
 -
@@ -371,15 +473,122 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/util/DeviceUtils.smali ./netfli
  .end method
  
  .method public static isDeviceSmallestWidthGreaterOrEqualThan(Landroid/app/Activity;I)Z
-diff -ur ./netflix/smali/com/netflix/mediaclient/util/MediaDrmUtils.smali ./netflix_patched/smali/com/netflix/mediaclient/util/MediaDrmUtils.smali
---- ./netflix/smali/com/netflix/mediaclient/util/MediaDrmUtils.smali	2019-06-24 13:35:11.000000000 +0700
-+++ ./netflix_patched/smali/com/netflix/mediaclient/util/MediaDrmUtils.smali	2019-06-23 02:34:56.000000000 +0700
-@@ -894,13 +894,7 @@
- .method public static isWidevineSecurityLevelL1()Z
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport.smali netflix_patched/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport.smali	2019-09-08 15:27:09.000000000 +0700
+@@ -282,12 +282,7 @@
      .locals 1
  
--    .prologue
--    .line 117
+     .prologue
+-    .line 640
+-    const-string/jumbo v0, "L1"
+-
+-    invoke-virtual {v0, p0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+-
+-    move-result v0
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+@@ -301,30 +296,8 @@
+     .end annotation
+ 
+     .prologue
+-    .line 645
+-    invoke-static {}, Lcom/netflix/mediaclient/util/AndroidUtils;->getAndroidVersion()I
+-
+-    move-result v0
+-
+-    const/16 v1, 0x12
+-
+-    if-lt v0, v1, :cond_0
+-
+-    .line 646
+-    sget-object v0, Lcom/netflix/mediaclient/util/MediaDrmUtils;->WIDEVINE_SCHEME:Ljava/util/UUID;
+-
+-    invoke-static {v0}, Landroid/media/MediaDrm;->isCryptoSchemeSupported(Ljava/util/UUID;)Z
+-
+-    move-result v0
+-
+-    .line 648
+-    :goto_0
++    const/4 v0, 0x1
+     return v0
+-
+-    :cond_0
+-    const/4 v0, 0x0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method private static releaseMediaDrmSafely(Landroid/media/MediaDrm;)Z
+@@ -395,8 +368,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 599
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;->isL1:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+@@ -415,8 +387,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 591
+-    iget-boolean v0, p0, Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;->supported:Z
++    const/4 v0, 0x1
+ 
+     return v0
+ .end method
+diff -ur netflix/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils.smali netflix_patched/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils.smali
+--- netflix/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils.smali	2019-09-13 08:42:02.000000000 +0700
++++ netflix_patched/smali_classes2/com/netflix/mediaclient/util/MediaDrmUtils.smali	2019-09-08 15:30:36.000000000 +0700
+@@ -1080,36 +1080,16 @@
+     .locals 2
+ 
+     .prologue
+-    .line 296
+-    sget-object v0, Lcom/netflix/mediaclient/util/MediaDrmUtils;->sCryptoProvider:Lcom/netflix/mediaclient/service/configuration/crypto/CryptoProvider;
+-
+-    sget-object v1, Lcom/netflix/mediaclient/service/configuration/crypto/CryptoProvider;->LEGACY:Lcom/netflix/mediaclient/service/configuration/crypto/CryptoProvider;
+-
+-    if-eq v0, v1, :cond_0
+-
+     const/4 v0, 0x1
+-
+-    :goto_0
+     return v0
+-
+-    :cond_0
+-    const/4 v0, 0x0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method private static isWidevineL1FailedOnDevice(Landroid/content/Context;)Z
+-    .locals 2
++    .locals 1
+ 
+     .prologue
+-    .line 180
+-    const-string/jumbo v0, "disable_widevine"
+-
+-    const/4 v1, 0x0
+ 
+-    invoke-static {p0, v0, v1}, Lcom/netflix/mediaclient/util/PreferenceUtils;->getBooleanPref(Landroid/content/Context;Ljava/lang/String;Z)Z
+-
+-    move-result v0
++    const/4 v0, 0x0
+ 
+     return v0
+ .end method
+@@ -1134,12 +1114,7 @@
+     .locals 1
+ 
+     .prologue
+-    .line 118
 -    sget-object v0, Lcom/netflix/mediaclient/util/MediaDrmUtils;->WIDEVINE:Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;
 -
 -    invoke-static {v0}, Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;->access$200(Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;)Z
@@ -389,12 +598,11 @@ diff -ur ./netflix/smali/com/netflix/mediaclient/util/MediaDrmUtils.smali ./netf
  
      return v0
  .end method
-@@ -927,13 +921,7 @@
-         }
+@@ -1167,12 +1142,7 @@
      .end annotation
  
--    .prologue
--    .line 131
+     .prologue
+-    .line 132
 -    sget-object v0, Lcom/netflix/mediaclient/util/MediaDrmUtils;->WIDEVINE:Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;
 -
 -    invoke-static {v0}, Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;->access$400(Lcom/netflix/mediaclient/util/MediaDrmUtils$WidevineSupport;)Z
