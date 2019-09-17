@@ -1,5 +1,7 @@
 # Netflix HD Patch APK
 
+**FOR EDUCATIONAL PURPOSE ONLY**
+
 Patched Netflix App for Android enabling Widevine L1 allowing not certified devices to play HD
 
 ## Prerequisites
@@ -27,3 +29,7 @@ apktool b -f netflix
 ```
 
 - Install `signed_netflix.apk` and enjoy Netflix HD
+
+## Disclaimer
+
+FOR EDUCATIONAL PURPOSE ONLY. I AM NOT RESPONSIBLE FOR ANYTHING
