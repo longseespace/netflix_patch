@@ -1,5 +1,7 @@
 # Netflix HD Patch APK
 
+**FOR EDUCATIONAL PURPOSE ONLY**
+
 Patched Netflix App for Android enabling Widevine L1 allowing not certified devices to play HD
 
 ## Prerequisites
@@ -39,3 +41,7 @@ diff -ruN orig/ new/ > file.patch
 #       may not have it, use "-c"
 # -N == treat absent files as empty
 ```
+
+## Disclaimer
+
+FOR EDUCATIONAL PURPOSE ONLY. I AM NOT RESPONSIBLE FOR ANYTHING
