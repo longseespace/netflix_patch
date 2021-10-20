@@ -1,6 +1,6 @@
 # Netflix HD Patch APK
 
-Follow me on Twitter for new updates 🙏 https://twitter.com/longseespace
+Follow me on Twitter for new updates 🙏 https://twitter.com/daniel_nguyen__
 
 **FOR EDUCATIONAL PURPOSE ONLY**
 
