@@ -1,7 +1,5 @@
 # Netflix HD Patch APK
 
-Follow me on Twitter for new updates 🙏 [https://twitter.com/daniel_nguyenx](https://twitter.com/daniel_nguyenx)
-
 **FOR EDUCATIONAL PURPOSE ONLY**
 
 Patched Netflix App for Android enabling Widevine L1 allowing not certified devices to play HD
